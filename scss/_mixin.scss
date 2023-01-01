@@ -1,0 +1,113 @@
+@use "variables" as v;
+
+// ------------------------------------------------
+//  ファイル名：_mixin.scss
+//  機能：mixinを記述する
+// ------------------------------------------------
+// ----------
+// 単位付き数値から単位を除去する
+// ----------
+//  $value: 単位付き数値
+// ----------
+@function strip-unit($value) {
+  @if type-of($value) == "number" and not unitless($value) {
+    @return $value / ($value * 0 + 1);
+  }
+  @return $value;
+}
+
+// ----------
+// 画面幅の変動に応じて、プロパティの値を変動させる
+// ----------
+// $property: 設定したいプロパティ
+// $min-vp: 変動前の画面幅
+// $min-value: 変動前のプロパティ値
+// $max-vp: 変動後の画面幅
+// max-value: 変動後のプロパティ値
+// $vp-unit: 単位
+// ----------
+@mixin viewport-scale($property, $min-breakpoint: sm, $min-value, $max-breakpoint: md, $max-value, $vp-unit: "vw") {
+  $u01: unit(map-get(v.$breakpoints, $min-breakpoint));
+  $u02: unit($min-value);
+  $u03: unit(map-get(v.$breakpoints, $max-breakpoint));
+  $u04: unit($max-value);
+  $a: strip-unit(map-get(v.$breakpoints, $min-breakpoint));
+  $b: strip-unit($min-value);
+  $c: strip-unit(map-get(v.$breakpoints, $max-breakpoint));
+  $d: strip-unit($max-value);
+
+  @if $u01 == $u03 and $u02 == $u04 {
+    $x: (($d - $b) / ($c - $a) * 100) + #{$vp-unit};
+    $y: (($c * $b - $a * $d) / ($c - $a)) + #{$u02};
+
+    @if $y == 0 {
+      // プロパティ値が小さい数値→大きい数値への変動の場合
+      @if $min-value < $max-value {
+        #{$property}: max($x, $min-value);
+      }
+
+      // プロパティ値が大きい数値→小さい数値への変動の場合
+      @else {
+        #{$property}: min($x, $min-value);
+      }
+    } @else {
+      // プロパティ値が小さい数値→大きい数値への変動の場合
+      @if $min-value < $max-value {
+        #{$property}: max(calc(#{$x} + #{$y}), $min-value);
+      }
+
+      // プロパティ値が大きい数値→小さい数値への変動の場合
+      @else {
+        #{$property}: min(calc(#{$x} + #{$y}), $min-value);
+      }
+    }
+  }
+}
+
+// ----------
+//  メディアクエリ（スマホ幅）を定義する
+// ----------
+// $breakpoint: ブレイクポイント※variableファイルで定義
+//             （sm: スマホ幅, md: タブレット幅, lg: PC幅）
+// ----------
+@mixin sp {
+  @media screen and (min-width: map-get(v.$breakpoints, sm)) {
+    @content;
+  }
+}
+
+// ----------
+//  line-heightを調節する（XDとwebで仕様が異なるため）
+// ----------
+//  $line-height: line-heightの指定値
+// ----------
+@mixin line-height-adjustment($lineHeight) {
+  line-height: $lineHeight;
+
+  &::before {
+    display: block;
+    content: "";
+    margin-top: calc((1 - #{$lineHeight}) * 0.5em);
+  }
+
+  &::after {
+    display: block;
+    content: "";
+    margin-bottom: calc((1 - #{$lineHeight}) * 0.5em);
+  }
+}
+
+// ----------
+//  letter-spacingを調節する（XDとwebで仕様が異なるため）
+// ----------
+//  $letterSpacing: letter-spacingの指定値
+// ----------
+@mixin letter-spacing-adjustment($letterSpacing) {
+  letter-spacing: $letterSpacing;
+
+  &::after {
+    display: block;
+    content: "";
+    margin-right: -$letterSpacing;
+  }
+}
