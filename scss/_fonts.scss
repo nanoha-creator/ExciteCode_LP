@@ -12,10 +12,18 @@
   src: url("../fonts/NotoSansJP-Medium.otf") format("opentype");
 }
 
+// Roboto Regular
+@font-face {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: map-get(v.$fontweights, regular);
+  src: url("../fonts/Roboto-Regular.ttf") format("truetype");
+}
+
 // Roboto Medium
 @font-face {
-  font-family: NotoSansJP;
+  font-family: Roboto;
   font-style: normal;
   font-weight: map-get(v.$fontweights, medium);
-  src: url("../fonts/Roboto-Medium.ttf") format("opentype");
+  src: url("../fonts/Roboto-Medium.ttf") format("truetype");
 }
