@@ -1,4 +1,4 @@
-@use "variables" as v;
+@use "variables" as *;
 
 // ------------------------------------------------
 //  ファイル名：_fonts.scss
@@ -8,7 +8,7 @@
 @font-face {
   font-family: NotoSansJP;
   font-style: normal;
-  font-weight: map-get(v.$fontweights, medium);
+  font-weight: $fontweight-medium;
   src: url("../fonts/NotoSansJP-Medium.otf") format("opentype");
 }
 
@@ -16,7 +16,7 @@
 @font-face {
   font-family: Roboto;
   font-style: normal;
-  font-weight: map-get(v.$fontweights, regular);
+  font-weight: $fontweight-regular;
   src: url("../fonts/Roboto-Regular.ttf") format("truetype");
 }
 
@@ -24,6 +24,6 @@
 @font-face {
   font-family: Roboto;
   font-style: normal;
-  font-weight: map-get(v.$fontweights, medium);
+  font-weight: $fontweight-medium;
   src: url("../fonts/Roboto-Medium.ttf") format("truetype");
 }

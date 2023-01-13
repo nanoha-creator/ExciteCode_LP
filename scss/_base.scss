@@ -1,4 +1,4 @@
-@use "variables" as v;
+@use "variables" as *;
 
 // ------------------------------------------------
 //  ファイル名：_base.scss
@@ -11,9 +11,9 @@
 
 body {
   margin: 0;
-  color: v.$color-green;
+  color: $color-green;
   font-family: Roboto, "Noto Sans JP", serif;
-  font-weight: map-get(v.$fontweights, medium);
+  font-weight: $fontweight-medium;
   line-height: normal;
 }
 

@@ -10,15 +10,13 @@ $color-greyish-green: #4d6452;
 $color-black: #2b2b21;
 
 // フォントの太さ
-$fontweights: (
-  thin: 100,
-  light: 300,
-  regular: 400,
-  medium: 500,
-  bold: 700,
-  extrabold: 800,
-  black: 900,
-) !default;
+$fontweight-thin: 100;
+$fontweight-light: 300;
+$fontweight-regular: 400;
+$fontweight-medium: 500;
+$fontweight-bold: 700;
+$fontweight-extrabold: 800;
+$fontweight-black: 900;
 
 // ブレークポイント
 $breakpoints: (

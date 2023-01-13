@@ -1,4 +1,4 @@
-@use "variables" as v;
+@use "variables" as *;
 
 // ------------------------------------------------
 //  ファイル名：_mixin.scss
@@ -18,13 +18,13 @@
 // viewport-scaleで設定する値を計算する
 // ----------
 @function viewport-scale-value($min-breakpoint, $min-value, $max-breakpoint, $max-value, $vp-unit) {
-  $u01: unit(map-get(v.$breakpoints, $min-breakpoint));
+  $u01: unit(map-get($breakpoints, $min-breakpoint));
   $u02: unit($min-value);
-  $u03: unit(map-get(v.$breakpoints, $max-breakpoint));
+  $u03: unit(map-get($breakpoints, $max-breakpoint));
   $u04: unit($max-value);
-  $a: strip-unit(map-get(v.$breakpoints, $min-breakpoint));
+  $a: strip-unit(map-get($breakpoints, $min-breakpoint));
   $b: strip-unit($min-value);
-  $c: strip-unit(map-get(v.$breakpoints, $max-breakpoint));
+  $c: strip-unit(map-get($breakpoints, $max-breakpoint));
   $d: strip-unit($max-value);
 
   // $min-valueと$max-valueが一致している場合は、そのまま返す
@@ -182,7 +182,7 @@
 //  スマホ幅用メディアクエリを定義する（PC幅が基準）
 // ----------
 @mixin sp() {
-  @media screen and (max-width: map-get(v.$breakpoints, sm)) {
+  @media screen and (max-width: map-get($breakpoints, sm)) {
     @content;
   }
 }
