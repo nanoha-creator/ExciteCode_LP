@@ -593,18 +593,6 @@
   background-color: $color-beige;
 }
 
-// PC幅でのみ適応
-.hp_onlyPc {
-  display: block;
-  @include sp {
-    display: none;
-  }
-}
-
-// スマホ幅でのみ適応
-.hp_onlySp {
-  display: none;
-  @include sp {
-    display: block;
-  }
+.is_noscroll {
+  position: fixed;
 }

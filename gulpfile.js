@@ -53,7 +53,7 @@ function compile(done) {
     .pipe(sass()) // sassのコンパイルをする
     .pipe(postcss([mqpacker()])) // メディアクエリをまとめる
     .pipe(autoprefixer()) // ベンダープレフィックスを自動付与する
-    .pipe(sourcemaps.write("./css/")) // ソースマップ作成
+    .pipe(sourcemaps.write("./")) // ソースマップ作成
     .pipe(dest("./css/")); // 出力先
 
   done();
