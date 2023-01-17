@@ -1,6 +1,6 @@
 # ExciteCode_LP
 
-まさたさんのコーディング課題（無料企画）『[ExciteCode](https://twitter.com/Masa_nmFL/status/1607300265635614720)』に取り組みました。
+コーディング課題『[ExciteCode](https://twitter.com/Masa_nmFL/status/1607300265635614720)』に取り組みました。
 
 ### 制作概要
 
