@@ -18,13 +18,13 @@
 // viewport-scaleで設定する値を計算する
 // ----------
 @function viewport-scale-value($min-breakpoint, $min-value, $max-breakpoint, $max-value, $vp-unit) {
-  $u01: unit(map-get($breakpoints, $min-breakpoint));
-  $u02: unit($min-value);
-  $u03: unit(map-get($breakpoints, $max-breakpoint));
-  $u04: unit($max-value);
-  $a: strip-unit(map-get($breakpoints, $min-breakpoint));
+  $u01: math.unit(map.get($breakpoints, $min-breakpoint));
+  $u02: math.unit($min-value);
+  $u03: math.unit(map.get($breakpoints, $max-breakpoint));
+  $u04: math.unit($max-value);
+  $a: strip-unit(map.get($breakpoints, $min-breakpoint));
   $b: strip-unit($min-value);
-  $c: strip-unit(map-get($breakpoints, $max-breakpoint));
+  $c: strip-unit(map.get($breakpoints, $max-breakpoint));
   $d: strip-unit($max-value);
 
   // $min-valueと$max-valueが一致している場合は、そのまま返す
@@ -84,30 +84,30 @@
     @else if length($min-value) == 2 {
       #{$property}-top: viewport-scale-value(
         $min-breakpoint,
-        nth($min-value, 1),
+        list.nth($min-value, 1),
         $max-breakpoint,
-        nth($max-value, 1),
+        list.nth($max-value, 1),
         $vp-unit
       );
       #{$property}-right: viewport-scale-value(
         $min-breakpoint,
-        nth($min-value, 2),
+        list.nth($min-value, 2),
         $max-breakpoint,
-        nth($max-value, 2),
+        list.nth($max-value, 2),
         $vp-unit
       );
       #{$property}-bottom: viewport-scale-value(
         $min-breakpoint,
-        nth($min-value, 1),
+        list.nth($min-value, 1),
         $max-breakpoint,
-        nth($max-value, 1),
+        list.nth($max-value, 1),
         $vp-unit
       );
       #{$property}-left: viewport-scale-value(
         $min-breakpoint,
-        nth($min-value, 2),
+        list.nth($min-value, 2),
         $max-breakpoint,
-        nth($max-value, 2),
+        list.nth($max-value, 2),
         $vp-unit
       );
     }
@@ -116,30 +116,30 @@
     @else if length($min-value) == 3 {
       #{$property}-top: viewport-scale-value(
         $min-breakpoint,
-        nth($min-value, 1),
+        list.nth($min-value, 1),
         $max-breakpoint,
-        nth($max-value, 1),
+        list.nth($max-value, 1),
         $vp-unit
       );
       #{$property}-right: viewport-scale-value(
         $min-breakpoint,
-        nth($min-value, 2),
+        list.nth($min-value, 2),
         $max-breakpoint,
-        nth($max-value, 2),
+        list.nth($max-value, 2),
         $vp-unit
       );
       #{$property}-bottom: viewport-scale-value(
         $min-breakpoint,
-        nth($min-value, 2),
+        list.nth($min-value, 2),
         $max-breakpoint,
-        nth($max-value, 2),
+        list.nth($max-value, 2),
         $vp-unit
       );
       #{$property}-left: viewport-scale-value(
         $min-breakpoint,
-        nth($min-value, 3),
+        list.nth($min-value, 3),
         $max-breakpoint,
-        nth($max-value, 3),
+        list.nth($max-value, 3),
         $vp-unit
       );
     }
@@ -148,30 +148,30 @@
     @else if length($min-value) == 4 {
       #{$property}-top: viewport-scale-value(
         $min-breakpoint,
-        nth($min-value, 1),
+        list.nth($min-value, 1),
         $max-breakpoint,
-        nth($max-value, 1),
+        list.nth($max-value, 1),
         $vp-unit
       );
       #{$property}-right: viewport-scale-value(
         $min-breakpoint,
-        nth($min-value, 2),
+        list.nth($min-value, 2),
         $max-breakpoint,
-        nth($max-value, 2),
+        list.nth($max-value, 2),
         $vp-unit
       );
       #{$property}-bottom: viewport-scale-value(
         $min-breakpoint,
-        nth($min-value, 3),
+        list.nth($min-value, 3),
         $max-breakpoint,
-        nth($max-value, 3),
+        list.nth($max-value, 3),
         $vp-unit
       );
       #{$property}-left: viewport-scale-value(
         $min-breakpoint,
-        nth($min-value, 4),
+        list.nth($min-value, 4),
         $max-breakpoint,
-        nth($max-value, 4),
+        list.nth($max-value, 4),
         $vp-unit
       );
     }
@@ -222,11 +222,21 @@
 //  $value: 調整値
 // ----------
 @mixin line-height-dec($value-top, $value-bottom) {
+  display: inline-block;
+
   &::before {
+    display: block;
+    content: "";
+    width: 0;
+    height: 0;
     margin-top: $value-top;
   }
 
   &::after {
+    display: block;
+    content: "";
+    width: 0;
+    height: 0;
     margin-bottom: $value-bottom;
   }
 }
@@ -237,14 +247,28 @@
 //  行間を増やすしたい場合に使用する
 //  行間を減らしたい場合はline-height-dec()を使用する
 // ----------
-//  $value: 調整値
+//  $lineHeight: line-heightの指定値
+//  $value-top, $value-bottom: 調整値
 // ----------
-@mixin line-height-inc($value-top, $value-bottom) {
+@mixin line-height-inc($lineHeight, $value-top, $value-bottom) {
+  line-height: $lineHeight;
+  display: inline-block;
+
   &::before {
+    display: block;
+    content: "";
+    width: 0;
+    height: 0;
     padding-top: $value-top;
+    margin-top: calc((1 - #{$lineHeight}) * 0.5em);
   }
 
   &::after {
+    display: block;
+    content: "";
+    width: 0;
+    height: 0;
     padding-bottom: $value-bottom;
+    margin-bottom: calc((1 - #{$lineHeight}) * 0.5em);
   }
 }

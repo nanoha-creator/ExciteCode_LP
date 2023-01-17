@@ -6,13 +6,6 @@
 //  機能：webページ全体のスタイルを記述する
 // ------------------------------------------------
 
-// ----------------------
-//  レイアウト
-// ----------------------
-.ly_wrapper {
-  overflow-x: hidden;
-}
-
 // ヘッダー
 .ly_header {
   width: 100%;
@@ -129,7 +122,7 @@
     top: 0;
     left: 0;
     z-index: 1000;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     background-color: $color-beige;
 
@@ -285,11 +278,6 @@
   transform: translate(-5px, 3px) rotate(-45deg);
 }
 
-// ハンバーガーボタンのオープン時はスクロールしない
-.is_noscroll {
-  overflow: hidden;
-}
-
 // ----------------------
 //  フッター
 // ----------------------
@@ -337,8 +325,7 @@
   color: $color-beige;
   font-size: 3rem;
   letter-spacing: 0.05em;
-  @include line-height-adjustment(1.375);
-  @include line-height-inc(15px, 7px);
+  @include line-height-inc(1.375, 15px, 7px);
 
   // 文字位置調整
   padding-left: 0.05em;
@@ -346,8 +333,7 @@
   @include sp {
     // 文字
     font-size: 1.875rem;
-    @include line-height-adjustment(1.4666);
-    @include line-height-inc(6px, 2px);
+    @include line-height-inc(1.4666, 6px, 2px);
   }
 }
 
@@ -453,12 +439,11 @@
 
 .bl_postList_date {
   display: inline-block;
-  width: 122px;
+  min-width: 122px;
 
   // 文字
   font-size: 0.875rem;
-  @include line-height-adjustment(1.7857);
-  @include line-height-inc(3px, 3px);
+  @include line-height-inc(1.7857, 3px, 3px);
 }
 
 .bl_postList_link {
@@ -466,8 +451,7 @@
   font-size: 0.9375rem;
   letter-spacing: 0.05em;
   color: $color-green;
-  @include line-height-adjustment(1.6);
-  @include line-height-inc(3px, 3px);
+  @include line-height-inc(1.6, 3px, 3px);
 }
 
 // ----------------------
@@ -495,21 +479,18 @@
 
   &:hover {
     background-color: $color-greyish-green;
+    transition: 0.3s;
   }
 
-  // モディファイア：幅220px
+  // モディファイア：幅大
   &.el_btn__wide {
     width: 220px;
-  }
+    font-size: 1.25rem;
 
-  // モディファイア：フォントサイズ20px
-  &.el_btn__fz20 {
-    font-size: 20px;
-  }
-
-  // モディファイア：上下のパディング18px
-  &.el_btn__p18 {
-    padding: 18px 0;
+    @include sp {
+      font-size: 1rem;
+      padding: 18px 0;
+    }
   }
 }
 
@@ -536,6 +517,7 @@
 
   // 文字
   font-size: 2.25rem;
+  font-weight: $fontweight-medium;
   letter-spacing: 0.05em;
 
   // 疑似要素との余白
@@ -589,18 +571,15 @@
 // テキスト
 .el_txt {
   letter-spacing: 0.05em;
-  @include line-height-adjustment(1.875);
-  @include line-height-inc(6px, 2px);
+  @include line-height-inc(1.875, 6px, 2px);
 
   // モディファイア：文字が大きい
   &.el_txt__large {
     font-size: 1.5rem;
-    @include line-height-adjustment(1.8333);
-    @include line-height-inc(8px, 3px);
+    @include line-height-inc(1.8333, 8px, 3px);
 
     @include sp {
       font-size: 1.25rem;
-      @include line-height-adjustment(1.8);
       @include line-height-dec(-9px, -9px);
     }
   }
